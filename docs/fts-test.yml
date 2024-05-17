@@ -1,3 +1,4 @@
+---
 description: "a VM for testing FTS"
 version: "24.4.0"
 
@@ -19,3 +20,4 @@ instances:
 # a health-check shell script ran by integration tests
 health-check: |
   lsb_release -a
+...

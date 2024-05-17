@@ -17,3 +17,4 @@
 - name: print videoserver url
   debug:
     msg: "Video Server URL: http://{{ videoserver_ipv4 }}:9997/v1/config/get"
+...

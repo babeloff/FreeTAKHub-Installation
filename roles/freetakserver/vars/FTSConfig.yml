@@ -20,3 +20,4 @@ fts_cot_to_db: true
 fts_federation_keypass: demopassfed
 fts_client_cert_password: demopasscert
 fts_websocket_key: YourWebsocketKey
+...

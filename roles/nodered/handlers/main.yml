@@ -35,3 +35,4 @@
 - name: print nodered token
   debug:
     msg: "Node-RED Server Token: {{ noderedserver_token }}"
+...

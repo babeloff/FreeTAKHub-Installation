@@ -17,3 +17,4 @@
     global: true
     unsafe_perm: true
   loop: "{{ mumble_web_npm_packages | list }}"
+...

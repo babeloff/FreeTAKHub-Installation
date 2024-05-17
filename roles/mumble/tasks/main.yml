@@ -1,3 +1,4 @@
 ---
 - name: Setup
   include_tasks: "setup-{{ ansible_distribution }}.yml"
+...

@@ -34,3 +34,4 @@
   service:
     name: "{{ murmur_service_name }}"
     state: restarted
+...

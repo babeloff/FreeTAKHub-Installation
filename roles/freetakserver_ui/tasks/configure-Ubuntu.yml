@@ -45,3 +45,4 @@
   register: set_fts_ui_state
   retries: 20
   until: set_fts_ui_state is success
+...

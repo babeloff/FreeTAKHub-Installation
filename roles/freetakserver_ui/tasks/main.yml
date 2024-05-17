@@ -21,3 +21,4 @@
   notify:
     - print fts_ui url
     - print fts_ui credentials
+...

@@ -31,3 +31,4 @@
   loop:
     - "{{ fts_config_path }}"
     - "{{ fts_db_path }}"
+...

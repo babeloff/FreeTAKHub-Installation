@@ -1,3 +1,4 @@
+---
 - name: Clone FreeTAKHub_VideoChecker repository
   git:
     repo: 'https://github.com/FreeTAKTeam/FreeTAKHub_VideoChecker.git'
@@ -20,3 +21,4 @@
     body_format: json
     status_code: 200
   when: git_clone_result.changed
+...

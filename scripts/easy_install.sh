@@ -573,7 +573,7 @@ function download_dependencies() {
 
   # Some Ubuntu installations do not have the software-properties-common
   # package by default, so install it if not installed
-  which apt-add-repository >/dev/null || apt-get --yes install software-properties-common
+  which apt-add-repository >/dev/null || apt-get install --yes software-properties-common
 
   apt-add-repository -y ppa:ansible/ansible
 
@@ -582,10 +582,10 @@ function download_dependencies() {
   apt-get -y ${APT_VERBOSITY--qq} update
 
   echo -e "${BLUE}Installing Ansible...${NOFORMAT}"
-  apt-get -y ${APT_VERBOSITY--qq} install ansible
+  apt-get ${APT_VERBOSITY--qq} install -y ansible
 
   echo -e "${BLUE}Installing Git...${NOFORMAT}"
-  apt-get -y ${APT_VERBOSITY--qq} install git
+  apt-get ${APT_VERBOSITY--qq} install -y git
 
 }
 

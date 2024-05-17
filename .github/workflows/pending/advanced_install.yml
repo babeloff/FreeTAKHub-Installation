@@ -122,3 +122,4 @@ jobs:
       - name: Test Command
         # run: vagrant ssh -c "wget -qO - bit.ly/ftsadvancedinstalltest | sudo bash -s -- --core --nodered --non-interactive --dev-test -v"
         run: vagrant ssh -c "wget -qO - bit.ly/ftsadvancedinstall | sudo bash -s -- --core --nodered --non-interactive"
+...

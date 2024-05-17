@@ -1,3 +1,4 @@
 ---
 - name: cleanup /tmp/*
   shell: sudo rm -rf /tmp/*
+...

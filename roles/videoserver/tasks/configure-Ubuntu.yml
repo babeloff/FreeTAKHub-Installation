@@ -28,3 +28,4 @@
     service_name: "{{ videoserver_service_name }}"
     service_enabled: "{{ videoserver_enabled }}"
     service_state: "{{ videoserver_state }}"
+...

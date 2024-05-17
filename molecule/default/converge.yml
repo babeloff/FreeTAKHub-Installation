@@ -31,3 +31,4 @@
 
     # Max seconds Node-RED Server will wait
     nodered_wait_for_videoserver_timeout: 600
+...

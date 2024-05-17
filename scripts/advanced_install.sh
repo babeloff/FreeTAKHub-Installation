@@ -361,13 +361,13 @@ function download_dependencies() {
 
   echo -e "${BLUE}Downloading package information from configured sources...${NOFORMAT}"
 
-  sudo apt-get -y ${APT_VERBOSITY--qq} update
+  sudo apt-get ${APT_VERBOSITY--qq} update
 
   echo -e "${BLUE}Installing Ansible...${NOFORMAT}"
-  sudo apt-get -y ${APT_VERBOSITY--qq} install ansible
+  sudo apt-get ${APT_VERBOSITY--qq} install -y ansible
 
   echo -e "${BLUE}Installing Git...${NOFORMAT}"
-  sudo apt-get -y ${APT_VERBOSITY--qq} install git
+  sudo apt-get ${APT_VERBOSITY--qq} install -y git
 
 
 }

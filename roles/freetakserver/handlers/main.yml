@@ -13,3 +13,4 @@
   service:
     name: "{{ fts_service_name }}"
     state: reloaded
+...

@@ -55,3 +55,4 @@ nodered_state: started
 
 # Enable service.
 nodered_enabled: true
+...

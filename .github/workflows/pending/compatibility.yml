@@ -141,3 +141,4 @@ jobs:
         run: vagrant ssh -c "wget -qO - bit.ly/ftsadvancedinstalltest | sudo bash -s -- --non-interactive --dev-test -v"
         env:
           IMAGE_DISTRO: ${{ matrix.distros }}
+...
