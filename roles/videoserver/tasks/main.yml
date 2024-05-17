@@ -46,3 +46,4 @@
   shell: ":"
   notify:
     - print videoserver url
+...

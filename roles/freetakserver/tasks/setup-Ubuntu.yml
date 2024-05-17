@@ -26,3 +26,4 @@
     virtualenv: "{{ fts_venv }}"
   environment:
     PIP_EXTRA_INDEX_URL: "{{ pypi_url }}"
+...

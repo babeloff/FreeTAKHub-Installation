@@ -46,3 +46,4 @@
 - name: "Configure webmap for {{ ansible_distribution }}"
   include_tasks: "configure-{{ ansible_distribution }}.yml"
   when: (ansible_architecture == "x86_64") or (webmap_force_install)
+...

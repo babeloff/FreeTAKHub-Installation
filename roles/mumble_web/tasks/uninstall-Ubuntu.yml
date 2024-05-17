@@ -20,3 +20,4 @@
     state: absent
     global: true
     unsafe_perm: true
+...

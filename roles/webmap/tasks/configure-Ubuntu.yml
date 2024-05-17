@@ -28,3 +28,4 @@
     service_name: "{{ webmap_service_name }}"
     service_enabled: "{{ webmap_enabled }}"
     service_state: "{{ webmap_state }}"
+...

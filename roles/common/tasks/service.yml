@@ -20,3 +20,4 @@
   register: set_service_state
   retries: 20
   until: set_service_state is success
+...

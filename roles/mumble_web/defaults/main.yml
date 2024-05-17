@@ -12,3 +12,4 @@ mumble_web_state: started
 
 # Enable service.
 mumble_web_enabled: true
+...

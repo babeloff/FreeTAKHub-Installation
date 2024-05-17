@@ -34,3 +34,4 @@
 
 - name: Configure
   include_tasks: "configure-{{ ansible_distribution }}.yml"
+...

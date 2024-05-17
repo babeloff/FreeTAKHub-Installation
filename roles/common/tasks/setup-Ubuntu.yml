@@ -1,11 +1,19 @@
 ---
-- name: Update apt
-  shell: sudo apt-get update 
+- name: Update apt packages
+  shell: sudo apt-get update
   register: apt_update
   retries: 5
   ignore_errors: true
   changed_when: false
   until: apt_update is success
+
+- name: Upgrade apt packages
+  shell: sudo apt-get upgrade -y
+  register: apt_upgrade
+  retries: 5
+  ignore_errors: true
+  changed_when: false
+  until: apt_upgrade is success
 
 - name: Detect systemctl file
   stat:
@@ -24,3 +32,4 @@
     url: https://raw.githubusercontent.com/gdraheim/docker-systemctl-replacement/master/files/docker/systemctl3.py
     dest: /usr/local/bin/systemctl
     mode: 0755
+...

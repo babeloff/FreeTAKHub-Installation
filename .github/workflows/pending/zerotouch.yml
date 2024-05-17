@@ -51,3 +51,4 @@ jobs:
       - name: Test Zero Touch Install
         # run: vagrant ssh -c "wget -qO - bit.ly/ftszerotouchinstalltest | sudo bash -s -- --dev-test -v"
         run: vagrant ssh -c "wget -qO - bit.ly/ftszerotouch | sudo bash"
+...

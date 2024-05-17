@@ -21,3 +21,4 @@
 - name: print fts_ui credentials
   debug:
     msg: "username: admin     password: password"
+...

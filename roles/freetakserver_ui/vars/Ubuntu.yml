@@ -9,3 +9,4 @@ fts_ui_apt_packages:
 
 fts_ui_pip_packages:
   - pyyaml
+...

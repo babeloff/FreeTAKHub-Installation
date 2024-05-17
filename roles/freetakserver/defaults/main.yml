@@ -17,3 +17,4 @@ fts_enabled: true
 
 # The relative path to the MainConfig.py file (from the fts_install_path).
 cfg_rpath: "core/configuration"
+...

@@ -38,3 +38,4 @@
     service_name: "{{ fts_service_name }}"
     service_enabled: "{{ fts_enabled }}"
     service_state: "{{ fts_state }}"
+...

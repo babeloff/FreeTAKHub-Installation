@@ -10,3 +10,4 @@
 - name: print reconfigure message
   debug:
     msg: "to reconfigure murmur (mumble server) enter: sudo dpkg-reconfigure mumble-server"
+...

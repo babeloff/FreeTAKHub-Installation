@@ -32,3 +32,4 @@
   shell: ":"
   notify:
     - print mumble_web url
+...

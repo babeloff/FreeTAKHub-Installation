@@ -13,3 +13,4 @@
     # extra_args: --force-reinstall
   environment:
     PIP_EXTRA_INDEX_URL: "{{ pypi_url }}"
+...

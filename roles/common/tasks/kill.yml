@@ -24,3 +24,4 @@
 - name: Force kill stuck processes
   ansible.builtin.shell: "kill -9 {{ item }}"
   with_items: "{{ killed_processes.results | select('failed') | map(attribute='item') | list }}"
+...

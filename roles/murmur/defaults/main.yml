@@ -10,3 +10,4 @@ murmur_state: started
 
 # Enable service. Recommended values: `true` or `false`
 murmur_enabled: true
+...

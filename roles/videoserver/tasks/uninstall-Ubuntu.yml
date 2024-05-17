@@ -19,3 +19,4 @@
   loop:
     - "{{ videoserver_executable_location }}"
     - "{{ videoserver_config_location }}"
+...
