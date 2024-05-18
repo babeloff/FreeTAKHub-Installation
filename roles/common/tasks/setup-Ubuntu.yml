@@ -1,4 +1,32 @@
 ---
+
+- name: nodejs armored key of gpg key should use .asc extension
+  block:
+    - name: nodesource | apt key
+      ansible.builtin.copy:
+        src: nodesource-repo.gpg.asc
+        dest: /etc/apt/keyrings/nodesource.gpg.asc
+
+    - name: nodesource | apt source
+      ansible.builtin.apt_repository:
+        repo: "deb [arch=arm64 signed-by=/etc/apt/keyrings/nodesource.gpg.asc] https://deb.nodesource.com/node_20.x nodistro main"
+        state: present
+
+    - name: nodesource | apt update cache
+      ansible.builtin.apt:
+        update_cache: yes
+      register: update_nodesource_result
+
+    - name: nodesource | apt update
+      ansible.builtin.apt:
+        upgrade: dist
+      when: update_nodesource_result.changed
+
+    - name: nodesource | apt autoremove
+      ansible.builtin.apt:
+        autoremove: yes
+      when: update_nodesource_result.changed
+
 - name: Update apt packages
   shell: sudo apt-get update
   register: apt_update
