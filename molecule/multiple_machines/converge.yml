@@ -39,5 +39,6 @@
 
 - hosts: noderedserver
   roles:
-    - nodered
+    - role: nodered
+      ignore_errors: yes
 ...
