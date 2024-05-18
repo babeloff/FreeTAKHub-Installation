@@ -21,7 +21,7 @@
   register: systemctl_file
 
 - name: Create systemctl backup
-  copy:
+  ansible.builtin.copy:
     src: /usr/local/bin/systemctl
     dest: /usr/local/bin/systemctl.backup
     remote_src: true

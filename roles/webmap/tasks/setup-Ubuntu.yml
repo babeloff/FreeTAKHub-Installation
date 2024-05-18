@@ -37,7 +37,7 @@
   rescue:
     # Used for when GitHub API rate limiting issues happen
     - name: Fail safe upload from repo (not necessarily latest)
-      copy:
+      ansible.builtin.copy:
         content: "{{ webmap_raw_executable_name }}"
         dest: "/tmp/{{ webmap_raw_executable_name }}"
         owner: root
@@ -45,7 +45,7 @@
         mode: 0755
 
 - name: "Rename {{ webmap_raw_executable_name }} to {{ webmap_executable }}"
-  copy:
+  ansible.builtin.copy:
     src: "/tmp/{{ webmap_raw_executable_name }}"
     dest: "/tmp/{{ webmap_executable }}"
     owner: root
@@ -54,7 +54,7 @@
     remote_src: true
 
 - name: "Copy {{ webmap_executable }} to {{ webmap_executable_location }}"
-  copy:
+  ansible.builtin.copy:
     src: "/tmp/{{ webmap_executable }}"
     dest: "{{ webmap_executable_location }}"
     owner: root

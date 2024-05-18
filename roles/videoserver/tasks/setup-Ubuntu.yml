@@ -41,7 +41,7 @@
     remote_src: true
 
 - name: "Copy /tmp/{{ videoserver_executable }} to {{ videoserver_executable_location }}"
-  copy:
+  ansible.builtin.copy:
     src: "/tmp/{{ videoserver_executable }}"
     dest: "{{ videoserver_executable_location }}"
     owner: root
