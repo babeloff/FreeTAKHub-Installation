@@ -604,9 +604,13 @@ function install_python_environment() {
   source ${FTS_VENV}/bin/activate
 
   python3 -m pip install --upgrade pip
-  python3 -m pip install --force-reinstall jinja2
-  python3 -m pip install --force-reinstall pyyaml
-  python3 -m pip install --force-reinstall psutil
+  python3 -m pip install --force-reinstall colorama==0.4.4
+  python3 -m pip install --force-reinstall dnspython==2.2.1
+  python3 -m pip install --force-reinstall eventlet==0.33.1
+  python3 -m pip install --force-reinstall greenlet==2.0.2
+  python3 -m pip install --force-reinstall jinja2==3.1.3
+  python3 -m pip install --force-reinstall pyyaml==6.0.1
+  python3 -m pip install --force-reinstall psutil==5.9.4
 
   deactivate
 
