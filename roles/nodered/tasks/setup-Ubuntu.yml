@@ -11,7 +11,7 @@
   block:
     - name: nodesource | apt key
       ansible.builtin.copy:
-        file: nodesource-repo.gpg.asc
+        src: nodesource-repo.gpg.asc
         dest: /etc/apt/keyrings/nodesource.gpg.asc
 
     - name: nodesource | apt source
