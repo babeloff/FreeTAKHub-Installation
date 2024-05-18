@@ -17,12 +17,18 @@
       import_tasks: ../../roles/common/tasks/cleanup.yml
 
   roles:
-    - freetakserver
-    - freetakserver_ui
-    - webmap
-    - murmur
-    - videoserver
-    - nodered
+    - role: freetakserver
+      ignore_errors: yes
+    - role: freetakserver_ui
+      ignore_errors: yes
+    - role: webmap
+      ignore_errors: yes
+    - role: murmur
+      ignore_errors: yes
+    - role: videoserver
+      ignore_errors: yes
+    - role: nodered
+      ignore_errors: yes
 
   vars:
 

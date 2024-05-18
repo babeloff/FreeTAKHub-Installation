@@ -20,5 +20,6 @@
       import_tasks: roles/common/tasks/cleanup.yml
 
   roles:
-    - nodered
+    - role: nodered
+      ignore_errors: yes
 ...

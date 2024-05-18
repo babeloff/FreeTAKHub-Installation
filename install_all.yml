@@ -4,11 +4,16 @@
   become: true
   become_user: root
   roles:
-    - freetakserver
-    - freetakserver_ui
-    - murmur
-    - videoserver
-    - nodered
+    - role: freetakserver
+      ignore_errors: yes
+    - role: freetakserver_ui
+      ignore_errors: yes
+    - role: murmur
+      ignore_errors: yes
+    - role: videoserver
+      ignore_errors: yes
+    - role: nodered
+      ignore_errors: yes
 
   vars:
 
