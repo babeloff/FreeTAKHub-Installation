@@ -1,0 +1,11 @@
+---
+fts_ip_addr_extra: 172.23.80.2
+python3_version: 3.11
+codename: jammy
+itype: stable
+fts_version: 2.2.1
+cfg_rpath: core/configuration
+fts_venv: /opt/fts.venv
+pypi_url: https://pypi.org/simple/
+webmap_force_install: true
+...

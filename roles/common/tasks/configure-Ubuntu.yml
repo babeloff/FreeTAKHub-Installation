@@ -23,13 +23,11 @@
     ssh_key_file: .ssh/id_rsa
     system: true
 
-- name: Set up authorized keys for the installing user
-  ansible.posix.authorized_key:
-    user: fts
-    key: "{{ item }}"
-    state: present
-  with_file:
-    - /home/fts/.ssh/id_rsa.pub
+#- name: Set up authorized keys for the installing user
+#  ansible.posix.authorized_key:
+#    user: fts
+#    key: "{{ lookup('file', '/home/fts/.ssh/id_rsa.pub') }}"
+#    state: present
 
 - name: Establish fts base folder {{ fts_base_path }}
   ansible.builtin.file:
@@ -40,7 +38,43 @@
     state: directory
     mode: u+rw,g+rw,o+r
 
-- name: Establish fts venv of {{ fts_venv }}
+#- name: "python repository | add"
+#  ansible.builtin.apt_repository:
+#    repo: "deb https://ppa.launchpadcontent.net/deadsnakes/ppa/ubuntu jammy main"
+#    filename: "deadsnakes"
+#    state: "present"
+
+- name: "python repository | add"
+  ansible.builtin.apt_repository:
+    repo: "ppa:deadsnakes/nightly"
+
+- name: "python repository | update apt repository"
+  ansible.builtin.apt:
+    update_cache: true
+
+- name: Ensure the Python version {{ python3_version }} packages are installed
+  ansible.builtin.package:
+    name:
+      - "python{{ python3_version }}"
+      - "python{{ python3_version }}-venv"
+      - "python{{ python3_version }}-dev"
+    state: present
+
+- name: "Install pip packages"
+  ansible.builtin.pip:
+    name:
+      - "pip"
+      - "colorama==0.4.4"
+      - "dnspython==2.2.1"
+      - "eventlet==0.33.1"
+      - "greenlet==2.0.2"
+      - "jinja2==3.1.3"
+      - "pyyaml==6.0.1"
+      - "psutil==5.9.4"
+    virtualenv: "{{ fts_venv }}"
+    virtualenv_python: "python{{ python3_version }}"
+
+- name: "Set permissions for the {{ fts_venv }} virtual environment"
   ansible.builtin.file:
     path: "{{ fts_venv }}"
     group: fts

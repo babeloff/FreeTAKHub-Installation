@@ -702,7 +702,7 @@ function run_playbook() {
 
   [[ -n "${CORE:-}" ]] && pb=install_mainserver || pb=install_all
   echo -e "${BLUE}Running Ansible Playbook ${GREEN}$pb${BLUE}...${NOFORMAT}"
-  ansible-playbook -u root  ${pb}.yml \
+  ansible-playbook -u root ${pb}.yml \
       --connection=local \
       --inventory localhost, \
       --extra-vars "$env_vars" \

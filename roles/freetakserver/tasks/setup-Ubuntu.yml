@@ -1,7 +1,7 @@
 ---
 - name: Delete PyYAML
   become: true
-  become_user: fts
+  become_user: root
   shell: "{{ item }}"
   loop:
     - "rm -rf {{ fts_python_packages }}/site-packages/yaml"
@@ -20,10 +20,19 @@
 
 - name: "Install {{ fts_pip_package_name }}"
   become: true
-  become_user: fts
+  become_user: root
   ansible.builtin.pip:
     name: "{{ fts_pip_package_name }}=={{ fts_version }}"
     virtualenv: "{{ fts_venv }}"
+    state: "present"
   environment:
     PIP_EXTRA_INDEX_URL: "{{ pypi_url }}"
+
+- name: "Change owner of {{ fts_venv }} to fts"
+  ansible.builtin.file:
+    path: "{{ fts_venv }}"
+    owner: "fts"
+    group: "fts"
+    recurse: true
+    state: "directory"
 ...

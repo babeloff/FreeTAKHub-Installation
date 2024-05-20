@@ -1,5 +1,5 @@
 ---
-- name: Install Main Server
+- name: Install Main FTS Server
   hosts: all
   become: true
   become_user: root
@@ -13,6 +13,6 @@
 
   roles:
     - freetakserver
-    # - freetakserver_ui
+    - freetakserver_ui
     # - webmap
 ...

@@ -57,53 +57,92 @@ Remotely is the typical mode for running Ansible.
 
 You will need some variant of Ubuntu 22.04 on your target machine.
 
+
 ## Setup (mimic `scripts/easy_install.sh`)
 
-This will install the production repository,
-unless you are modifying `scripts/easy_install.sh` you will want your cloned repository.
+Typically, Ansible is run from a control-node which updates managed-nodes.
+In this case we have just one managed-node.
 
-Note that Ansible does not run on Windows.
-https://docs.ansible.com/ansible/latest/os_guide/windows_faq.html
+### Install Ansible on the control-node
 
-It does run from the Windows Subsystem for Linux (WSL2).
+```bash
+which apt-add-repository >/dev/null || sudo apt-get install --yes software-properties-common
+sudo apt-add-repository -y ppa:ansible/ansible
+
+sudo apt-get update
+sudo apt-get install -y ansible
+sudo apt-get install -y git
+```
+
+## Clone Repository onto a control-node
+
+Typically, Ansible is run from a control-node which updates managed-nodes. 
+
+### Clone from the Github Project Repository
+Note that the control-node can not be running Windows.
+* https://docs.ansible.com/ansible/latest/os_guide/windows_faq.html
+* https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#control-node-requirements
+
+Therefore, this first approach does not work on Windows.
 ```bash
 git clone https://github.com/FreeTAKTeam/FreeTAKHub-Installation.git fts-install
 ```
 
+### ... onto a `multipass` Ubuntu VM from a Working git Repository
+```powershell
+multipass mount C:\Users\feisele\ primary:/home/ubuntu/self
+```
+Then from the `multipass` VM instance.
+```bash
+git clone file:///home/ubuntu/self/fts-install/.git fts-install
+```
+
+### ... onto a Windows Subsystem for Linux (WSL2) from a Working git Repository
+```powershell
+multipass mount C:\Users\feisele\ primary:/home/ubuntu/self
+```
+Then from the `multipass` VM instance.
+```bash
+git clone file:///mnt/c/Users/feisele/fts-install/.git fts-install
+```
+
+## Run the Playbook on the control-node
+
 https://docs.ansible.com/ansible/latest/cli/ansible-playbook.html
 
-```bash
-export FTS_IP_CUSTOM="172.23.80.2"
-
-export CODENAME="jammy"
-export INSTALL_TYPE="stable"
-export PY3_VER="3.11"
-export FTS_VERSION="2.2.1"
-export FTS_VENV="/opt/fts.venv"
-export CFG_RPATH="core/configuration"
-export OS_REQD="Ubuntu"
-export OS_VER_REQD="22.04"
-
-env_vars1="python3_version=$PY3_VER codename=$CODENAME itype=$INSTALL_TYPE"
-env_vars2="fts_version=$FTS_VERSION cfg_rpath=$CFG_RPATH fts_venv=$FTS_VENV"
-env_vars3="fts_ip_addr_extra=$FTS_IP_CUSTOM"
-env_vars4="pypi_url=$PYPI_URL"
-env_vars5="webmap_force_install=true"
-
+`sample_config/latest_vars.yml`
+```yaml
+---
+fts_ip_addr_extra: 172.23.80.2
+python3_version: 3.11
+codename: jammy
+itype: stable
+fts_version: 2.2.1
+cfg_rpath: core/configuration
+fts_venv: /opt/fts.venv
+pypi_url: https://pypi.org/simple/
+webmap_force_install: true
+...
 ```
-Now we can install using a playbook on a target machine
-```bash
-export APB=install_all
 
+Select a playbook.
+```bash
+export APB=install_mainserver
+export APB=install_murmur
+export APB=install_noderedserver
+export APB=install_videoserver
+export APB=install_all
+```
+
+Now we can install using the playbook on a target machine.
+```bash
 ansible-playbook \
-  --user root  \
+  --user mcp  \
   --connection ssh \
-  --inventory mcp-x \
-  --extra-vars "$env_vars1" \
-  --extra-vars "$env_vars2" \
-  --extra-vars "$env_vars3" \
-  --extra-vars "$env_vars4" \
-  --extra-vars "$env_vars5" \
+  --inventory inventory.yml \
+  --private-key ~/.ssh/mcp_rsa \
+  --limit phreed \
+  --extra-vars "@sample_config/latest_vars.yml" \
   -vvvv \
   ${APB}.yml
 ```
