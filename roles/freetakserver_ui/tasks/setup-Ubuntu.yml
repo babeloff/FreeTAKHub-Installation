@@ -9,21 +9,25 @@
   apt:
     name: "{{ fts_ui_apt_packages }}"
 
-- name: "Install pip packages"
-  become: true
-  become_user: fts
+- name: "Install pip FTS UI packages"
   ansible.builtin.pip:
     name: "{{ fts_ui_pip_packages }}"
     virtualenv: "{{ fts_venv }}"
   environment:
     PIP_EXTRA_INDEX_URL: "{{ pypi_url }}"
 
-- name: "Install {{ fts_ui_pip_package_name }}"
-  become: true
-  become_user: fts
+- name: "Install pip FTS UI packages"
   ansible.builtin.pip:
     name: "{{ fts_ui_pip_package_name }}"
     virtualenv: "{{ fts_venv }}"
   environment:
     PIP_EXTRA_INDEX_URL: "{{ pypi_url }}"
+
+- name: "Change owner of {{ fts_venv }} to fts"
+  ansible.builtin.file:
+    path: "{{ fts_venv }}"
+    owner: "fts"
+    group: "fts"
+    recurse: true
+    state: "directory"
 ...

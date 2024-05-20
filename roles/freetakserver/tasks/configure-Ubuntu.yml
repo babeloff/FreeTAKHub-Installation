@@ -1,8 +1,6 @@
 ---
 
 - name: Template FTSConfig.yaml config file
-  become: true
-  become_user: fts
   template:
     src: FTSConfig.yaml.j2
     dest: "{{ fts_config_path }}"
