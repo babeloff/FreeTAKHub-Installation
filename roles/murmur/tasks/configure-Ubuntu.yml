@@ -7,12 +7,17 @@
     group: mumble-server
     mode: 0660
 
-- name: Enable and set service
-  include_tasks: ../../common/tasks/service.yml
-  vars:
-    service_name: "{{ murmur_service_name }}"
-    service_enabled: "{{ murmur_enabled }}"
-    service_state: "{{ murmur_state }}"
+
+- name: "Activate Murmur Chat service"
+  become: true
+  become_user: root
+  ansible.builtin.systemd_service:
+    name: "{{ murmur_service_name }}"
+    enabled: "{{ murmur_enabled }}"
+    state: "{{ murmur_state }}"
+  register: activate_murmur_service
+  retries: 20
+  until: activate_murmur_service is succeeded
 
 - name: Generate random superuser password
   set_fact:
@@ -31,7 +36,7 @@
   failed_when: false
 
 - name: restart murmur
-  service:
+  ansible.builtin.systemd_service:
     name: "{{ murmur_service_name }}"
     state: restarted
 ...

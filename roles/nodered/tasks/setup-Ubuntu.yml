@@ -46,19 +46,6 @@
     group: root
     mode: 0664
 
-
-- name: Enable service
-  tags: nodered
-  become: true
-  become_user: root
-  service:
-    name: "{{ nodered_service_name }}"
-    enabled: true
-    use: systemd
-  register: enable_nodered_state
-  retries: 20
-  until: enable_nodered_state is success
-
 - name: Template settings file
   tags: nodered
   template:
@@ -68,16 +55,16 @@
     group: root
     mode: 0664
 
-- name: Set service state
+- name: Activate service state
   tags: nodered
-  service:
+  ansible.builtin.systemd_service:
     name: "{{ nodered_service_name }}"
+    enabled: true
     state: restarted
-    use: systemd
   register: set_nodered_state
   retries: 20
   until:
-    - set_nodered_state is success
+    - set_nodered_state is succeeded 
     - set_nodered_state.status.ActiveState == "active"
 
 - name: "Template backup Node-RED flows"

@@ -1,27 +1,31 @@
 ---
-- name: Delete PyYAML
-  shell: "{{ item }}"
-  loop:
-    - "rm -rf {{ fts_venv }}/lib/python3.11/site-packages/yaml"
-    - "rm -rf {{ fts_venv }}/lib/python3.11/site-packages/PyYAML-*"
 
 - name: Install apt packages
   apt:
     name: "{{ fts_ui_apt_packages }}"
+  notify: "Activate fts_ui Service"
 
 - name: "Install pip FTS UI packages"
   ansible.builtin.pip:
     name: "{{ fts_ui_pip_packages }}"
     virtualenv: "{{ fts_venv }}"
+  notify: "Activate fts_ui Service"
   environment:
     PIP_EXTRA_INDEX_URL: "{{ pypi_url }}"
 
 - name: "Install pip FTS UI packages"
   ansible.builtin.pip:
-    name: "{{ fts_ui_pip_package_name }}"
+    name: "{{ fts_ui_pip_package_name }}=={{ fts_ui_pip_package_version }}"
     virtualenv: "{{ fts_venv }}"
+  notify: "Activate fts_ui Service"
   environment:
     PIP_EXTRA_INDEX_URL: "{{ pypi_url }}"
+
+- name: "Install FTS UI rund.py main daemon"
+  ansible.builtin.copy:
+    src: "run1.py"
+    dest: "{{ fts_ui_install_path }}/rund.py"
+  notify: "Activate fts_ui Service"
 
 - name: "Change owner of {{ fts_venv }} to fts"
   ansible.builtin.file:

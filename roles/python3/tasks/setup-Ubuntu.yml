@@ -10,7 +10,7 @@
   ansible.builtin.pip:
     name: "{{ pip3_packages }}"
     virtualenv: "{{ fts_venv }}"
-    # extra_args: --force-reinstall
+    state: "forcereinstall"
   environment:
     PIP_EXTRA_INDEX_URL: "{{ pypi_url }}"
 ...

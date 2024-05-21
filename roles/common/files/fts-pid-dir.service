@@ -1,0 +1,12 @@
+[Unit]
+Description=Create directory for fts PID files
+Before=fts-ui.service fts.service
+After=systemd-tmpfiles-setup.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/install -d -o fts -g fts -m 0755 /var/run/fts
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

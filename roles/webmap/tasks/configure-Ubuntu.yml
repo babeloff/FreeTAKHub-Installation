@@ -22,10 +22,14 @@
   vars:
     process: "/opt/FTH-webmap-linux"
 
-- name: Enable and set service
-  include_tasks: ../../common/tasks/service.yml
-  vars:
-    service_name: "{{ webmap_service_name }}"
-    service_enabled: "{{ webmap_enabled }}"
-    service_state: "{{ webmap_state }}"
+- name: "Activate FTS WebMap service"
+  become: true
+  become_user: root
+  ansible.builtin.systemd_service:
+    name: "{{ webmap_service_name }}"
+    enabled: "{{ webmap_enabled }}"
+    state: "{{ webmap_state }}"
+  register: activate_fts_service
+  retries: 20
+  until: activate_fts_service is succeeded
 ...

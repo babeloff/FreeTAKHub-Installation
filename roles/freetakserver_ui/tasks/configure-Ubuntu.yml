@@ -1,11 +1,21 @@
 ---
-- name: Template config file
-  ansible.builtin.template:
-    src: config.py.j2
+- name: default FTS-UI config file
+  ansible.builtin.copy:
+    src: config.py
     dest: "{{ fts_ui_install_path }}/config.py"
     owner: fts
     group: fts
     mode: 0664
+  notify: "Activate fts_ui Service"
+
+- name: Template config file
+  ansible.builtin.template:
+    src: FTS_UIConfig.yaml.j2
+    dest: "/opt/fts/FTS_UIConfig.yaml"
+    owner: fts
+    group: fts
+    mode: 0664
+  notify: "Activate fts_ui Service"
 
 - name: Template unit file
   become: true
@@ -16,31 +26,18 @@
     owner: root
     group: root
     mode: 0664
+  notify: "Activate fts_ui Service"
 
 #- name: Kill any currently running processes
 #  include_tasks: ../../common/tasks/kill.yml
 #  vars:
 #    process: "{{ fts_ui_install_path }}/run.py"
 
-- name: Enable service
-  become: true
-  become_user: root
-  service:
+- name: "Enable fts_ui service"
+  ansible.builtin.systemd_service:
     name: "{{ fts_ui_service_name }}"
     enabled: "{{ fts_ui_enabled }}"
-    use: systemd
-  register: enable_fts_ui
-  retries: 20
-  until: enable_fts_ui is success
+    daemon_reload: true
+  notify: "Activate fts_ui Service"
 
-- name: Set service state
-  become: true
-  become_user: root
-  service:
-    name: "{{ fts_ui_service_name }}"
-    state: "{{ fts_ui_state }}"
-    use: systemd
-  register: set_fts_ui_state
-  retries: 20
-  until: set_fts_ui_state is success
 ...

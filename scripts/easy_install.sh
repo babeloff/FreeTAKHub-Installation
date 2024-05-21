@@ -589,32 +589,7 @@ function download_dependencies() {
 
 }
 
-###############################################################################
-# We can install the python virtual environment here including the python interpreter.
-# This removes any need to deal with any circular requirement between
-# the installer, Ansible, and its dependencies (e.g. jinja2) and
-# the application being installed, FTS, and its dependencies.
-###############################################################################
-function install_python_environment() {
-  apt-get update
-  apt-get install -y python3-pip python3-setuptools
-  apt-get install -y python${PY3_VER}-dev python${PY3_VER}-venv libpython${PY3_VER}-dev
 
-  /usr/bin/python${PY3_VER} -m venv ${FTS_VENV}
-  source ${FTS_VENV}/bin/activate
-
-  python3 -m pip install --upgrade pip
-  python3 -m pip install --force-reinstall colorama==0.4.4
-  python3 -m pip install --force-reinstall dnspython==2.2.1
-  python3 -m pip install --force-reinstall eventlet==0.33.1
-  python3 -m pip install --force-reinstall greenlet==2.0.2
-  python3 -m pip install --force-reinstall jinja2==3.1.3
-  python3 -m pip install --force-reinstall pyyaml==6.0.1
-  python3 -m pip install --force-reinstall psutil==5.9.4
-
-  deactivate
-
-}
 ###############################################################################
 # Handle git repository
 ###############################################################################
@@ -735,13 +710,10 @@ set_versions
 
 do_checks
 download_dependencies
-[[ "$DEFAULT_INSTALL_TYPE" == "$INSTALL_TYPE" ]] && install_python_environment
 handle_git_repository
 add_passwordless_ansible_execution
 generate_key_pair
 
 [[ 0 -eq $DRY_RUN ]] || die "Dry run complete. Not running Ansible" 0
 run_playbook
-
-join_fts_group
 cleanup
