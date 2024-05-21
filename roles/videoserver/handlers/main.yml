@@ -1,18 +1,10 @@
 ---
-- name: enable videoserver
-  service:
+- name: activate videoserver
+  ansible.builting.systemd_service:
     name: "{{ videoserver_service_name }}"
     enabled: "{{ videoserver_enabled }}"
-
-- name: reload videoserver
-  service:
-    name: "{{ videoserver_service_name }}"
-    state: reloaded
-
-- name: set videoserver state
-  service:
-    name: "{{ videoserver_service_name }}"
     state: "{{ videoserver_state }}"
+    daemon_reload: true
 
 - name: print videoserver url
   debug:

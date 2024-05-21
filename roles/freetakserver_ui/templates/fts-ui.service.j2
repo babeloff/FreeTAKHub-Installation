@@ -1,17 +1,20 @@
 [Unit]
 Description=FreeTAKServer-UI service
-After=network.target network-online.target
+After=network.target network-online.target fts-pid-dir.service
 StartLimitIntervalSec=0
 
 [Service]
 Type=simple
-Restart=always
+Restart=on-failure
 RestartSec=1
 User=fts
 Group=fts
 StandardOutput=append:/var/log/{{ fts_ui_service_name }}/{{ fts_ui_service_name }}-stdout.log
 StandardError=append:/var/log/{{ fts_ui_service_name }}/{{ fts_ui_service_name }}-stderr.log
-ExecStart={{ fts_venv }}/bin/python3 {{ fts_ui_install_path }}/run.py
+ExecStart={{ fts_venv }}/bin/python3 {{ fts_ui_install_path }}/rund.py
+ExecReload=/bin/kill -HUP $MAINPID
+ExecStop=/bin/kill -TERM $MAINPID
+PIDFile=/var/run/fts/fts-ui.pid
 
 [Install]
 WantedBy=multi-user.target

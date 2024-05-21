@@ -1,16 +1,8 @@
 ---
-- name: enable freetakserver
-  service:
+- name: activate freetakserver service
+  ansible.builtin.systemd_service:
     name: "{{ fts_service_name }}"
     enabled: "{{ fts_enabled }}"
-
-- name: set freetakserver state
-  service:
-    name: "{{ fts_service_name }}"
     state: "{{ fts_state }}"
-
-- name: reload freetakserver
-  service:
-    name: "{{ fts_service_name }}"
-    state: reloaded
+    daemon_reload: true
 ...

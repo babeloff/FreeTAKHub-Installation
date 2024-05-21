@@ -1,18 +1,14 @@
 ---
-- name: enable freetakserver_ui
-  service:
-    name: "{{ fts_ui_service_name }}"
-    enabled: "{{ fts_ui_enabled }}"
 
-- name: reload freetakserver_ui
-  service:
+- name: "Activate fts_ui Service"
+  ansible.builtin.systemd_service:
     name: "{{ fts_ui_service_name }}"
-    state: reloaded
-
-- name: set freetakserver_ui state
-  service:
-    name: "{{ fts_ui_service_name }}"
-    state: "{{ fts_ui_state }}"
+    state: "restarted"
+  listen: "Activate fts_ui Service"
+  register: activate_fts_ui_status
+  retries: 5
+  ignore_errors: true
+  until: activate_fts_ui_status is succeeded
 
 - name: print fts_ui url
   debug:

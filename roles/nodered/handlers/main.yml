@@ -1,18 +1,10 @@
 ---
-- name: enable nodered
-  service:
+- name: activate nodered
+  ansible.builtin.systemd_service:
     name: "{{ nodered_service_name }}"
     enabled: "{{ nodered_enabled }}"
-
-- name: reload nodered
-  service:
-    name: "{{ nodered_service_name }}"
-    state: reloaded
-
-- name: set nodered state
-  service:
-    name: "{{ nodered_service_name }}"
     state: "{{ nodered_state }}"
+    daemon_reload: true
 
 - name: wait for lock release
   shell: >

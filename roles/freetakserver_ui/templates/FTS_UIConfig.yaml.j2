@@ -1,0 +1,22 @@
+ui:
+    SQLALCHEMY_DATABASE_URI: 'sqlite:////opt/fts/FTSServer-UI.db'
+    EXPOSED_IP: '0.0.0.0'
+    PORT: 5000
+    WSKEY: 'YourWebsocketKey'
+fts:
+    CERTS_PATH: "{{ fts_python_packages }}/site-packages/FreeTAKServer/certs/"
+    IP: '{{ fts_public_ipv4 }}'
+    API_PORT: 19023
+    API_PROTO: 'http'
+    API_KEY: 'Bearer token'
+map:
+    EXPOSED_IP: '{{ fts_public_ipv4 }}'
+    PORT: 8000
+    PROTO: 'http'
+appseed_db:
+    USER: 'appseed'
+    PASSWORD: 'appseed'
+    HOST: 'db'
+    PORT: 5432
+    NAME: 'appseed'
+

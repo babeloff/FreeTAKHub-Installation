@@ -22,10 +22,12 @@
   vars:
     process: "rtsp-simple-server"
 
-- name: Enable and set service
-  include_tasks: ../../common/tasks/service.yml
-  vars:
-    service_name: "{{ videoserver_service_name }}"
-    service_enabled: "{{ videoserver_enabled }}"
-    service_state: "{{ videoserver_state }}"
+- name: "Activate Video service"
+  ansible.builtin.systemd_service:
+    name: "{{ videoserver_service_name }}"
+    enabled: "{{ videoserver_enabled }}"
+    state: "{{ videoserver_state }}"
+  register: activate_video_service
+  retries: 20
+  until: activate_video_service is succeeded
 ...

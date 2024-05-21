@@ -4,12 +4,13 @@ fts_ui_ipv4: 0.0.0.0
 
 # FreeTAKServer-UI pip package name
 fts_ui_pip_package_name: FreeTAKServer-UI
+fts_ui_pip_package_version: 2.2
 
 # system service name
 fts_ui_service_name: fts-ui
 
 # Set initial service state. Recommended values: `started` or `stopped`.
-fts_ui_state: started
+fts_ui_state: restarted
 
 # Enable service.
 fts_ui_enabled: true

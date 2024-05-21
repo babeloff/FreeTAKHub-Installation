@@ -8,5 +8,5 @@ fts_ui_apt_packages:
   - python3-distutils
 
 fts_ui_pip_packages:
-  - pyyaml
+  - "pyyaml==6.0.1"
 ...
