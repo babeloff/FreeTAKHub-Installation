@@ -17,10 +17,10 @@
     group: root
     mode: 0664
 
-- name: Kill any currently running processes
-  include_tasks: ../../common/tasks/kill.yml
-  vars:
-    process: "{{ fts_ui_install_path }}/run.py"
+#- name: Kill any currently running processes
+#  include_tasks: ../../common/tasks/kill.yml
+#  vars:
+#    process: "{{ fts_ui_install_path }}/run.py"
 
 - name: Enable service
   become: true
