@@ -6,7 +6,7 @@
     state: "restarted"
   listen: "Activate fts_ui Service"
   register: activate_fts_ui_status
-  retries: 5
+  retries: 1
   ignore_errors: true
   until: activate_fts_ui_status is succeeded
 
