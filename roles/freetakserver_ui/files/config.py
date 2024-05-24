@@ -35,14 +35,14 @@ class Config(object):
 
     # certificates path
     default_cert_path = purelib_path / 'FreeTAKServer' / 'certs'
-    cert_path = core_cfg_yaml.get('CERTS_PATH', str(default_cert_path))
-    CERT_PATH = Path(cert_path)
+    # cert_path = core_cfg_yaml.get('CERTS_PATH', str(default_cert_path))
+    # CERT_PATH = Path(cert_path)
 
     # crt file path
-    crtfilepath = str(CERT_PATH / "pubserver.pem")
+    # crtfilepath = str(CERT_PATH / "pubserver.pem")
 
     # key file path
-    keyfilepath = str(CERT_PATH / "pubserver.key.unencrypted")
+    # keyfilepath = str(CERT_PATH / "pubserver.key.unencrypted")
 
     # this IP will be used to connect with the FTS API
     IP = environ.get('FTS_IP', core_cfg_yaml.get('IP', '127.0.0.1'))

@@ -1,11 +1,4 @@
 ---
-- name: Delete PyYAML
-  become: true
-  become_user: root
-  shell: "{{ item }}"
-  loop:
-    - "rm -rf {{ fts_python_packages }}/site-packages/yaml"
-    - "rm -rf {{ fts_python_packages }}/site-packages/PyYAML-*"
 
 - name: Install apt dependencies
   apt:
@@ -22,7 +15,8 @@
   become: true
   become_user: root
   ansible.builtin.pip:
-    name: "{{ fts_pip_package_name }}=={{ fts_version }}"
+#    name: "{{ fts_pip_package_name }}=={{ fts_version }}"
+    name: 'git+https://github.com/FreeTAKTeam/FreeTakServer.git@705-unable-to-install-broken-dependencies'
     virtualenv: "{{ fts_venv }}"
     state: "present"
   environment:
