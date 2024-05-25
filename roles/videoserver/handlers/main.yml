@@ -1,6 +1,6 @@
 ---
 - name: activate videoserver
-  ansible.builting.systemd_service:
+  ansible.builtin.systemd_service:
     name: "{{ videoserver_service_name }}"
     enabled: "{{ videoserver_enabled }}"
     state: "{{ videoserver_state }}"
