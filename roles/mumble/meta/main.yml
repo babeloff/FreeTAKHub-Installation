@@ -1,6 +1,8 @@
 ---
 dependencies:
-  - { role: common }
+  - role: nodejs
+    vars:
+      placeholder: "foo"
 
 galaxy_info:
   role_name: murmur

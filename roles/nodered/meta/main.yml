@@ -1,6 +1,6 @@
 ---
 dependencies:
-  - {role: common}
+  - role: nodejs
 
 galaxy_info:
   role_name: nodered

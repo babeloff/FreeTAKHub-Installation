@@ -39,6 +39,12 @@ cat ./scripts/easy_install.sh | sudo bash -s -- --verbose --repo file://$(pwd)/.
 So long as you are working with the same git repository the `--repo` option could (and should)
 be omitted from subsequent runs as the default is to reuse the clone.
 
+```bash
+export FORKED_REPO=babeloff
+export MY_IPA=172.23.80.2
+wget -qO - https://raw.githubusercontent.com/${FORKED_REPO}/FreeTAKHub-Installation/main/scripts/easy_install.sh | sudo bash -s -- --ip-addr ${MY_IPA}
+```
+
 
 ## Regression Testing the ZTI
 

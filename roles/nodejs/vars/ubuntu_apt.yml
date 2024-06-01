@@ -1,0 +1,7 @@
+---
+fts_nodjs_apt_deps:
+  - git
+  - curl
+  - wget
+  - nodejs
+...
