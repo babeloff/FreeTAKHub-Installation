@@ -1,0 +1,15 @@
+---
+name: ansible-mcp
+channels:
+  - conda-forge
+dependencies:
+  - yamllint
+  - ansible
+  - molecule
+  - podman
+  - pytest-testinfra
+  - python==3.11
+  - pip:
+    - molecule-plugins-podman
+variables:
+...

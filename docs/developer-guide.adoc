@@ -1,0 +1,191 @@
+= Development of Roles
+
+
+== Ansible Roles
+
+In Ansible,
+roles are a method of automatically loading certain
+variables, tasks, files, templates, and handlers based on a known file structure.
+Grouping content by roles allows for easy sharing and reuse.
+The link:https://docs.ansible.com/ansible/2.9/user_guide/playbooks_reuse_roles.html[Ansible documentation]
+on roles outlines the file structure and other considerations.
+
+When developing roles,
+you will need to deal with various concerns,
+including what operating system(s) and version(s) you will be supporting
+and whether you only need a single node
+or if you have to target a cluster of machines.
+It is also often important to start from a fresh state
+every time you rerun your role while developing it to ensure:
+
+* that your roles complete successfully on their first run
+* that changes performed on previous runs are not affecting the outcome
+* verify that your role is idempotent
+  to ensure that no matter how many times it is executed, you achieve the same result
+* verify that things should only be changed if they need to be changed.
+  For example, a service should only be restarted if configuration changes warrant a restart.
+* consider how to check that your role has done what you intend it to do.
+  Logging in to a target node and manually checking is certainly one way to do it.
+  However, it is better to write tests that can be automatically run
+  after your Ansible role to verify the actual state.
+
+To automate these types of tests,
+you will need a target host (or set of hosts),
+and you will need to destroy
+and recreate that host (or set of hosts) constantly during the development process.
+You will also be responsible for managing connections to the host (or hosts) in one of the Ansible-supported methods.
+In addition,
+you must hand off to your chosen testing tool and handle its connection to the node(s).
+Managing this development and testing infrastructure can be tedious
+and will eat up a lot of the time that could be better spent on role features.
+
+== Configure the Environment
+
+I prefer using `micromamba`, to establish the molecule environment
+which is installed as follows:
+[source,yaml]
+----
+include::molecule-env.yml[]
+----
+
+=== References
+
+https://insights.sei.cmu.edu/blog/writing-ansible-roles-with-confidence/
+
+== Using Ansible Molecule
+
+Ansible Molecule can be run on Windows 11,
+but there are some considerations and steps to follow to set up the environment properly.
+
+By following these steps,
+you can set up and run Ansible Molecule on Windows 11 using WSL 2 and Docker.
+This setup leverages the power of a native Linux environment while running on a Windows system, providing a robust and efficient way to test Ansible roles.
+Here is a detailed guide to help you get started:
+
+===  Prerequisites
+
+==== Windows Subsystem for Linux (WSL)
+Install WSL to get a Linux environment on your Windows 11 machine.
+WSL 2 is recommended as it offers better performance.
+
+==== Podman (Linux Containers)
+Install Podman Desktop for Windows, which integrates with WSL 2.
+
+===  Install WSL and a Linux Distribution
+
+==== Enable WSL
+Open PowerShell as an administrator and run:
+
+[source,powershell]
+----
+wsl --install
+----
+
+==== Install a Linux Distribution
+For example, to install Ubuntu:
+
+[source,powershell]
+----
+wsl --install -d Ubuntu
+----
+
+==== Set WSL 2 as the Default Version
+
+[source,powershell]
+----
+wsl --set-default-version 2
+----
+
+===  Set Up the Linux Environment
+==== Update and Upgrade the Linux Distribution
+Open the installed Linux distribution (e.g., Ubuntu) and run:
+
+[source,bash]
+----
+sudo apt update
+sudo apt upgrade -y
+----
+
+==== Install Python and Pip
+
+[source,bash]
+----
+sudo apt install python3 python3-pip -y
+----
+
+==== Install Ansible
+
+[source,bash]
+----
+pip3 install ansible
+----
+
+==== Install Molecule and Podman Driver
+
+[source,bash]
+----
+pip3 install molecule[podman]
+----
+
+===  Install Podman Desktop for Windows
+
+link:https://podman-desktop.io/[Download Podman Desktop from the official Podman website].
+
+==== Configure Podman Desktop
+Open Podman Desktop and configure it to use WSL 2.
+
+Ensure Podman is Running:
+Check the settings to ensure Podman is using WSL 2 for container management.
+
+==== Enable WSL 2 Integration in Podman Desktop settings
+
+- Open Docker Desktop.
+- Go to Settings
+  > General and ensure "Use the WSL 2 based engine" is checked.
+- Go to Settings
+  > Resources
+    > WSL Integration and enable integration with your installed Linux distribution (e.g., Ubuntu).
+
+====  Configure Podman for Your Linux Distribution
+In your Linux distribution shell, verify Podman is working:
+
+[source,bash]
+----
+podman version
+----
+Run a test Docker container to ensure everything is set up correctly:
+
+[source,bash]
+----
+podman run hello-world
+----
+
+===  Use Molecule with Docker
+Create a new Ansible role and run Molecule tests:
+
+==== Create a New Role
+
+[source,bash]
+----
+mkdir my_role
+cd my_role
+
+molecule init scenario --driver-name podman
+----
+
+==== Run Molecule Tests
+
+[source,bash]
+----
+molecule test
+----
+
+=== References
+
+For additional details, you can refer to the
+link:https://docs.ansible.com/ansible/latest/index.html[official Ansible documentation]
+and the
+link:https://molecule.readthedocs.io/en/latest/[Molecule documentation].
+
+
+

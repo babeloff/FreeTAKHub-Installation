@@ -19,13 +19,14 @@ provisioner:
   playbooks:
     converge: ${MOLECULE_PLAYBOOK:-converge.yml}
 
-verifier:
-  name: ansible
-
 scenario:
   test_sequence:
     - destroy
     - create
     - converge
     - destroy
+
+verifier:
+  name: ansible
+
 ...
