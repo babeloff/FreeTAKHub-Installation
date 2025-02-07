@@ -21,7 +21,8 @@ git remote add origin <url-of-fork>
 
 # Running the ZTI locally
 
-You will need some variant of Ubuntu 22.04 on your development machine.
+You will need some variant of Ubuntu (22.04, 24.04) or Debian (Bookworm)
+on your development machine.
 The following will install FTS on your development machine.
 ```bash
 cat ./scripts/easy_install.sh | sudo bash -s -- --verbose
